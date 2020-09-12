@@ -73,7 +73,7 @@ $table_prefix = 'wp_';
  * in their development environments.
  *
  * For information on other constants that can be used for debugging,
- * visit the documentation.
+ * visit the documentation.  
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
