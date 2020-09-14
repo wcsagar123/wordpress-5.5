@@ -1,0 +1,12 @@
+.#{$prefix}-menu-description{
+    display: inline-block;
+    background: $color_primary;
+    color: white;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
