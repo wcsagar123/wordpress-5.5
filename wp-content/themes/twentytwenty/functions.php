@@ -754,3 +754,37 @@ function twentytwenty_get_elements_array() {
 	*/
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
+
+// Require all inputs for a list field.
+ 
+add_filter( 'gform_field_validation_53_1', 'validate_list_field', 10, 4 );
+function validate_list_field( $result, $value, $form, $field ) {
+    if ( $field->type == 'list' ) {
+ 
+        GFCommon::log_debug( __METHOD__ . '(): List Field: ' . print_r( $value, true ) );
+ 
+        foreach ( $value as $row_values ) {
+        GFCommon::log_debug( __METHOD__ . '(): Row Value: ' . print_r( $row_values, true ) );
+ 
+            $column_1 = rgar( $row_values, 'Type' );
+            GFCommon::log_debug( __METHOD__ . '(): Column 1: ' . print_r( $column_1, true ) );
+ 
+            $column_2 = rgar( $row_values, 'Cost' );
+            GFCommon::log_debug( __METHOD__ . '(): Column 2: ' . print_r( $column_2, true ) );
+ 
+            $column_3 = rgar( $row_values, 'Frequency' );
+            GFCommon::log_debug( __METHOD__ . '(): Column 3: ' . print_r( $column_3, true ) );
+ 
+            if ( empty( $column_1 ) || empty( $column_2 ) || empty( $column_3 ) ) {
+                $has_empty_input = true;
+            }
+        }
+ 
+        if ( $has_empty_input ) {
+            $result['is_valid'] = false;
+            $result['message']  = 'All inputs are required!';
+        }
+    }
+ 
+    return $result;
+} 
