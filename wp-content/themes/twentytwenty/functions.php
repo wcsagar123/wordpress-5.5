@@ -757,7 +757,7 @@ function twentytwenty_get_elements_array() {
 
 // Require all inputs for a list field.
  
-add_filter( 'gform_field_validation_53_1', 'validate_list_field', 10, 4 );
+add_filter( 'gform_field_validation_1_1', 'validate_list_field', 10, 4 );
 function validate_list_field( $result, $value, $form, $field ) {
     if ( $field->type == 'list' ) {
  
