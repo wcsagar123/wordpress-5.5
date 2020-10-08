@@ -1,0 +1,58 @@
+2020-09-22T06:26:26+00:00 CRITICAL Uncaught Error: Call to undefined function get_field() in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\product-image.php:43
+Stack trace:
+#0 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-core-functions.php(344): include()
+#1 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1476): wc_get_template('single-product/...')
+#2 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(287): woocommerce_show_product_images('')
+#3 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#4 D:\xampp\htdocs\wordpress-5-5\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#5 D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\content-single-product.php(49): do_action('woocommerce_bef...')
+#6 D:\xampp\htdocs\wordpress-5-5\wp-includes\template.php(732): require('D:\\xampp\\htdocs...')
+#7 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woo in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\product-image.php on line 43
+
+2020-09-22T06:26:34+00:00 CRITICAL Uncaught Error: Call to undefined function get_field() in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\product-image.php:43
+Stack trace:
+#0 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-core-functions.php(344): include()
+#1 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1476): wc_get_template('single-product/...')
+#2 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(287): woocommerce_show_product_images('')
+#3 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#4 D:\xampp\htdocs\wordpress-5-5\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#5 D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\content-single-product.php(49): do_action('woocommerce_bef...')
+#6 D:\xampp\htdocs\wordpress-5-5\wp-includes\template.php(732): require('D:\\xampp\\htdocs...')
+#7 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woo in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\product-image.php on line 43
+
+2020-09-22T06:27:17+00:00 CRITICAL Uncaught Error: Call to undefined function get_field() in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\price.php:27
+Stack trace:
+#0 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-core-functions.php(344): include()
+#1 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1567): wc_get_template('single-product/...')
+#2 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(287): woocommerce_template_single_price('')
+#3 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#4 D:\xampp\htdocs\wordpress-5-5\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#5 D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\content-single-product.php(76): do_action('woocommerce_sin...')
+#6 D:\xampp\htdocs\wordpress-5-5\wp-includes\template.php(732): require('D:\\xampp\\htdocs...')
+#7 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommer in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\price.php on line 27
+
+2020-09-22T06:28:42+00:00 CRITICAL syntax error, unexpected '<', expecting end of file in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\price.php on line 29
+
+2020-09-22T06:28:59+00:00 CRITICAL Uncaught Error: Call to undefined function get_field() in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\price.php:27
+Stack trace:
+#0 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-core-functions.php(344): include()
+#1 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1567): wc_get_template('single-product/...')
+#2 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(287): woocommerce_template_single_price('')
+#3 D:\xampp\htdocs\wordpress-5-5\wp-includes\class-wp-hook.php(311): WP_Hook->apply_filters(NULL, Array)
+#4 D:\xampp\htdocs\wordpress-5-5\wp-includes\plugin.php(478): WP_Hook->do_action(Array)
+#5 D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\content-single-product.php(76): do_action('woocommerce_sin...')
+#6 D:\xampp\htdocs\wordpress-5-5\wp-includes\template.php(732): require('D:\\xampp\\htdocs...')
+#7 D:\xampp\htdocs\wordpress-5-5\wp-content\plugins\woocommer in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\twentytwenty\woocommerce\single-product\price.php on line 27
+
+2020-09-22T06:34:07+00:00 CRITICAL Uncaught Error: Call to undefined function get_field() in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\kipli\header.php:91
+Stack trace:
+#0 D:\xampp\htdocs\wordpress-5-5\wp-includes\template.php(730): require_once()
+#1 D:\xampp\htdocs\wordpress-5-5\wp-includes\template.php(676): load_template('D:\\xampp\\htdocs...', true, Array)
+#2 D:\xampp\htdocs\wordpress-5-5\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 D:\xampp\htdocs\wordpress-5-5\wp-content\themes\kipli\single.php(9): get_header()
+#4 D:\xampp\htdocs\wordpress-5-5\wp-includes\template-loader.php(106): include('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\wordpress-5-5\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#6 D:\xampp\htdocs\wordpress-5-5\index.php(17): require('D:\\xampp\\htdocs...')
+#7 {main}
+  thrown in D:\xampp\htdocs\wordpress-5-5\wp-content\themes\kipli\header.php on line 91
+

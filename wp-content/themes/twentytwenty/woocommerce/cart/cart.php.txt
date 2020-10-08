@@ -1,0 +1,250 @@
+<?php
+/**
+ * Cart Page
+ *
+ * This template can be overridden by copying it to yourtheme/woocommerce/cart/cart.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see     https://docs.woocommerce.com/document/template-structure/
+ * @package WooCommerce/Templates
+ * @version 3.8.0
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+ ?>
+ <section class="WFwrap cart-section pb-0">
+  <div class="container">
+
+<div class="payment-step cart-step">
+          <div class="stepwizard">
+            <ul class="stepwizard-row setup-panel">
+              <li class="stepwizard-step col-4 step-success">
+                <p>Panier</p>
+                <a href="#" class="btn btn-success btn-circle" disabled="disabled">1</a> </li>
+              <li class="stepwizard-step col-4">
+                <p>Livraison</p>
+                <a href="#step-1" class="btn btn-default btn-circle" disabled="disabled">2</a> </li>
+              <li class="stepwizard-step col-4">
+                <p>Paiement</p>
+                <a href="#step-2" class="btn btn-default btn-circle" disabled="disabled">3</a> </li>
+            </ul>
+          </div>
+        </div>
+        <?php do_action( 'woocommerce_before_cart' );?>
+</div>
+</section>
+<section class="WFwrap cart-section">
+  <div class="container">
+  
+    <h1>Votre panier</h1>
+    
+      <div class="row">
+        <div class="col-lg-7 col-12">
+        <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
+        	
+           <div class="shop_table shop_table_responsive cart woocommerce-cart-form__contents">
+          <?php do_action( 'woocommerce_before_cart_table' ); ?>
+          <?php do_action( 'woocommerce_before_cart_contents' ); ?>
+          <?php 
+			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+				/*echo '<pre>';
+				print_r( $cart_item);
+				print_r( $cart_item['data']->get_price());
+				
+				echo '</pre>';*/
+				$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+				$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
+					$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
+					?>
+          <div class="items_row CartItem woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>" >
+            <div class="product-thumbnail cart-left">
+              <?php
+						$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+
+						if ( ! $product_permalink ) {
+							echo $thumbnail; // PHPCS: XSS ok.
+						} else {
+							printf( '<a href="%s" class="cart-image">%s</a>', esc_url( $product_permalink ), $thumbnail ); // PHPCS: XSS ok.
+						}
+						?>
+            </div>
+            <div class="cart-right">
+              <div class="product-name cart-title"  data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
+                <?php
+						if ( ! $product_permalink ) {
+							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
+						} else {
+							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
+						}
+
+						do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
+
+						
+
+						// Backorder notification.
+						if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
+							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
+						}
+						?>
+                <div class="product-quantity" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
+                  <?php
+						if ( $_product->is_sold_individually() ) {
+							$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
+						} else {
+							$product_quantity = woocommerce_quantity_input(
+								array(
+									'input_name'   => "cart[{$cart_item_key}][qty]",
+									'input_value'  => $cart_item['quantity'],
+									'max_value'    => $_product->get_max_purchase_quantity(),
+									'min_value'    => '0',
+									'product_name' => $_product->get_name(),
+								),
+								$_product,
+								false
+							);
+						}
+
+						echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
+						?>
+                </div>
+                <div class="cart-price product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>"> <span class="money">
+                 <?php
+								echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+							?>
+                           
+                  </span> </div>
+              </div>
+              <div class="cart-size"><span class="size">
+                <?php // Meta data.
+						 echo wc_get_formatted_cart_item_data( $cart_item );?>
+                </span></div>
+              <?php 
+			$variations = $_product->get_attributes();
+			$product_desc =  get_field('product_description',$product_id);?>
+              <?php if($product_desc['items'] && count($variations) < 2){?>
+              <ul class="pro-list px-0">
+                <?php 
+				foreach($product_desc['items'] as $item){
+
+					echo "<li>".$item['item']."</li>";
+				}
+			?>
+              </ul>
+              <?php }?>
+              <div class="product-remove">
+                <?php
+								echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+									'woocommerce_cart_item_remove_link',
+									sprintf(
+										'<a href="%s" class="remove icon-close" aria-label="%s" data-product_id="%s" data-product_sku="%s"></a>',
+										esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+										esc_html__( 'Remove this item', 'woocommerce' ),
+										esc_attr( $product_id ),
+										esc_attr( $_product->get_sku() )
+									),
+									$cart_item_key
+								);
+							?>
+              </div>
+            </div>
+          </div>
+          <?php 
+		   if(isset( $cart_item['woosb_ids'] ) && ! empty( $cart_item['woosb_ids'] )){$ex_qty =  count(explode(',',$cart_item['woosb_ids'])); }else{$ex_qty = 1;}
+		  if( isset( $cart_item["reprise_ancien"] )  &&  $cart_item["reprise_ancien"]  !="") {
+			   
+			  ?>
+          <div class="items_row CartItem back-mattress reprise_ancien">
+          <div class="cart-left"> <a class="cart-image" href="#"><img src="<?php echo get_template_directory_uri();?>/img/Repise-de-votre.svg" alt="cart-drawer-icon" title=""></a> </div>
+          <div class="cart-middle">
+         
+            <label class="checkbox m-0 text-left pl-0">Reprise de votre ancien matelas
+           
+            </label>
+            </div>
+          <div class="cart-right">
+            <div class="cart-title">
+              <div class="cart-price"> <span class="money"><?php echo (($cart_item["reprise_ancien"] * $ex_qty ) * $cart_item['quantity']).' '.get_woocommerce_currency_symbol()?></span> </div>
+            </div>
+          </div>
+        </div>
+        <?php } ?>
+        
+         <?php if( isset( $cart_item["montage"] )  &&  $cart_item["montage"]  !="") {?>
+          <div class="items_row CartItem back-mattress">
+          <div class="cart-left"> <a class="cart-image" href="#"><img src="<?php echo get_template_directory_uri();?>/img/100-nuits.svg" alt="cart-drawer-icon" title=""></a> </div>
+          <div class="cart-middle">
+            <label class="checkbox m-0 text-left  pl-0">Montage de votre sommier</label>
+           </div>
+          <div class="cart-right">
+            <div class="cart-title">
+              <div class="cart-price"> <span class="money"><?php echo (($cart_item["montage"]* $ex_qty ) * $cart_item['quantity']).' '.get_woocommerce_currency_symbol()?></span> </div>
+            </div>
+          </div>
+        </div>
+        <?php }?>
+          <?php
+				}
+			}
+			?>
+          <?php do_action( 'woocommerce_cart_contents' ); ?>
+          <!--<div class="items_row CartItem back-mattress">
+          <div class="cart-left"> <a class="cart-image" href="#"><img src="<?php echo get_template_directory_uri() ?>/img/cart-drawer-icon.png" alt="cart-drawer-icon" title=""></a> </div>
+          <div class="cart-middle">
+         
+            <label class="checkbox m-0 text-left">Reprise de votre ancien matelas</label>
+            <a href="#" class="question-icon"></a> </div>
+          <div class="cart-right">
+            <div class="cart-title">
+              <div class="cart-price"> <span class="money">29 €</span> </div>
+            </div>
+          </div>
+        </div>-->
+          
+            <div class="items_row CartItem back-mattress actions">
+              <div class="cart-right">
+                <?php echo do_shortcode('[wcss-share-cart-btn]');?>
+                <button type="submit" class="btn btn-primary" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>">
+                <?php esc_html_e( 'Update cart', 'woocommerce' ); ?>
+                </button>
+              </div>
+              <?php do_action( 'woocommerce_cart_actions' ); ?>
+              <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+             
+            </div>
+            
+            <?php do_action( 'woocommerce_after_cart_contents' ); ?>
+            <?php do_action( 'woocommerce_after_cart_table' ); ?>
+            
+            </div>
+            </form>
+        </div>
+        <div class="col-lg-5 col-12">
+        	<?php do_action('woocommerce_cart_totals')?>
+        </div>
+      </div>
+    
+  </div>
+</section>
+
+
+<?php do_action( 'woocommerce_before_cart_collaterals' ); ?>
+<div class="cart-collaterals">
+  <?php
+		/**
+		 * Cart collaterals hook.
+		 *
+		 * @hooked woocommerce_cross_sell_display
+		 * @hooked woocommerce_cart_totals - 10
+		 */
+		do_action( 'woocommerce_cart_collaterals' );
+	?>
+</div>
+<?php do_action( 'woocommerce_after_cart' ); ?>
